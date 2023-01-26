@@ -9,6 +9,7 @@ export type TCard = {
   img: string;
   locale: string;
   currentHp?: number;
+  attack?: number;
 };
 
 export type TCards = TCard[];

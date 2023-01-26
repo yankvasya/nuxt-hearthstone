@@ -1,5 +1,14 @@
 <template>
-  <div class="card" :class="{ 'can-use': canUse }" @click="clickHandler">
+  <div
+    @dragstart="startDrag($event)"
+    @dragend="endDrag($event)"
+    @dragover.prevent
+    @dragenter.prevent
+    @drop="onDrop($event)"
+    :draggable="canUse"
+    class="card"
+    :class="{ 'can-use': canUse, dragged: draggable }"
+  >
     <img class="card__image" :src="card.img" :alt="card.name" />
     <div v-if="card.currentHp !== undefined" class="card__hp text">
       {{ card.currentHp }}/30
@@ -18,12 +27,20 @@ type Props = {
 
 const props = defineProps<Props>();
 
-const emit = defineEmits(["update:click"]);
+const emit = defineEmits(["update:startDrag", "update:endDrag", "update:drop"]);
 
-const clickHandler = () => {
-  if (props.canBeat) {
-    emit("update:click");
-  }
+const draggable = ref(false);
+
+const startDrag = (event: Event): void => {
+  draggable.value = true;
+  emit("update:startDrag", event, props.card);
+};
+const endDrag = (event: Event): void => {
+  draggable.value = false;
+  emit("update:endDrag", event, props.card);
+};
+const onDrop = (event: Event): void => {
+  emit("update:drop", event, props.card);
 };
 </script>
 
@@ -42,11 +59,16 @@ const clickHandler = () => {
     }
   }
 
+  &.dragged {
+    transform: scale(1.2);
+  }
+
   .card__image {
     pointer-events: none;
   }
 
   .card__hp {
+    user-select: none;
     pointer-events: none;
     position: absolute;
     bottom: 30%;
