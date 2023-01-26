@@ -29,7 +29,7 @@ export const useHearthstone = defineStore("hearthstone", () => {
     const getCards = getCardsAPI(url)
       .then((data) => {
         const minions = data.filter(
-          (card) => card.type === "Minion" && card.img
+          (card) => card.type === "Minion" && card.img && card.attack
         );
         cards.data = minions;
         cards.my = getRandomElements(minions, 3);
