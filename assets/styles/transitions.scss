@@ -1,0 +1,15 @@
+.slide-y-enter-from {
+  transform: translate(0, -500px);
+}
+
+.slide-y-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-y-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-y-leave-to {
+  transform: translate(0, -2000px);
+}
