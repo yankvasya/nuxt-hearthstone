@@ -11,4 +11,9 @@ export default defineNuxtConfig({
       },
     },
   },
+  runtimeConfig: {
+    public: {
+      HEARTH_TOKEN: process.env.HEARTH_TOKEN || "",
+    },
+  },
 });

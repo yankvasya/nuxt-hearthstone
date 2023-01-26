@@ -44,6 +44,7 @@ const clickHandler = () => {
   &.disabled {
     pointer-events: none;
     background: $yellow;
+    color: $dark-orange;
     transition: 0.4s;
   }
 }
